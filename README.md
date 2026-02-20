@@ -1,6 +1,8 @@
+<br><br><br>
 <p align="center">
-  <img src="img/Timelyx_logo.png" width= 50%>
+  <img src="img/Timelyx_logo.png" width= 30%>
 </p>
+<br><br><br>
 
 # Timelyx (Lecture Hall Management System)
 
