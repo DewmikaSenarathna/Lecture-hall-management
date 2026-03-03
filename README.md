@@ -254,8 +254,7 @@ This project is developed strictly for academic purposes and learning outcomes o
 
 ---
 <br>
----
-<br>
+
 
 ## 16. Interface Design & UI Summary
 
