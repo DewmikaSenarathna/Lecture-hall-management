@@ -265,12 +265,6 @@ This project is developed strictly for academic purposes and learning outcomes o
 - **Status Visualization**: Integrated a color-coded system (Green/Yellow/Red) for instant booking status recognition.
 - **Optimized Profiles**: Created specialized profile views (e.g., "Courses Teaching" for Lecturers) to replace generic statistics.
 
-### Interface Breakdown (19 Pages):
-- **Public**: Home, Login, Sign Up, About, Contact
-- **Lecturer**: Dashboard, My Bookings, Notice Management, Profile
-- **Student**: Dashboard, Timetable, Notice Board, Profile
-- **HOD**: Dashboard, Pending Approvals, Hall Schedule, Notices
-- **TO**: Admin Dashboard, User Approvals, Approval History, Notices, Profile
 
 ---
 <br>
