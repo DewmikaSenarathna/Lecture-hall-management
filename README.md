@@ -268,23 +268,4 @@ This project is developed strictly for academic purposes and learning outcomes o
 
 ---
 <br>
----
-<br>
 
-## 17. QA Testing Results & Known Issues
-
-During the Quality Assurance (QA) phase, the following bugs and functional issues were identified and documented for future refactoring:
-
-### Functional Issues
-- **BUG-01 (Account Workflow):** User account requests submitted via the Sign-In interface do not appear in the Technical Officer (TO) dashboard for approval.
-- **BUG-04 (Communication):** Message sending functionality in the 'Contact Us' section fails to deliver messages.
-- **BUG-06 (Security):** Password reset functionality is currently non-functional and requires backend fix.
-- **BUG-08 (Data Persistence):** User profile updates are not being saved to the database (Data integrity issue).
-
-### UI/UX & Navigation Issues
-- **BUG-02 (Visibility):** Notifications in the HOD section are not visible to other designated stakeholders.
-- **BUG-03 (Interface Logic):** Approval history section in the HOD interface shows inconsistent data behavior.
-- **BUG-05 (Layout):** Partial visibility issues in the notification section where some content is cut off.
-- **BUG-07 (Navigation):** Incorrect redirection logic for notification links in the sidebar.
-
----
