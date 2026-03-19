@@ -104,7 +104,7 @@ Lecture-hall-management/
 │
 ├── frontend/ # React frontend
 │ ├── public/
-│ └── src/
+│ ├── src/
 │ ├── assets/
 │ ├── components/
 │ ├── pages/
@@ -124,7 +124,6 @@ Lecture-hall-management/
 │ │ ├── middleware/
 │ │ ├── app.js
 │ │ └── server.js
-│ └── tests/
 │
 ├── tests/ # Integration and system tests
 │
@@ -178,7 +177,7 @@ git clone Lecture-hall-management
 
 2. Install backend dependencies:
 ```text
-cd server
+cd backend
 npm install
 ```
 ---
@@ -187,7 +186,7 @@ npm install
 
 3. Install frontend dependencies:
 ```text
-cd server
+cd frontend
 npm install
 ```
 ---
