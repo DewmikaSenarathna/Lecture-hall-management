@@ -9,53 +9,73 @@ import {
 
 const HODLayout = () => {
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className="flex min-h-screen bg-gray-50 dark:bg-slate-900 transition-colors">
 
-      {/* SIDEBAR */}
-      <aside className="w-64 bg-white border-r shadow-sm p-6 hidden md:block">
+      {/* SIDEBAR - student style */}
+      <aside className="w-64 bg-white dark:bg-slate-800 border-r border-gray-200 dark:border-slate-700 p-6 hidden md:block transition-colors">
+        <nav className="space-y-4">
 
-        <h2 className="text-xl font-bold text-indigo-600 mb-8">
-          HOD Panel
-        </h2>
-
-        <nav className="space-y-2">
-
-          <SidebarItem
+          <NavLink
             to="/hod"
             end
-            icon={<LayoutDashboard size={18} />}
-            label="Dashboard"
-          />
+            className={({ isActive }) =>
+              isActive
+                ? "block bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 px-4 py-3 rounded-lg font-medium transition-colors"
+                : "block px-4 py-3 text-gray-700 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-slate-700 rounded-lg transition-colors"
+            }
+          >
+            Dashboard
+          </NavLink>
 
-          <SidebarItem
+          <NavLink
             to="/hod/hall-schedule"
-            icon={<CalendarDays size={18} />}
-            label="Hall Schedule"
-          />
+            className={({ isActive }) =>
+              isActive
+                ? "block bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 px-4 py-3 rounded-lg font-medium transition-colors"
+                : "block px-4 py-3 text-gray-700 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-slate-700 rounded-lg transition-colors"
+            }
+          >
+            Hall Schedule
+          </NavLink>
 
-          <SidebarItem
+          <NavLink
             to="/hod/history"
-            icon={<History size={18} />}
-            label="History"
-          />
+            className={({ isActive }) =>
+              isActive
+                ? "block bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 px-4 py-3 rounded-lg font-medium transition-colors"
+                : "block px-4 py-3 text-gray-700 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-slate-700 rounded-lg transition-colors"
+            }
+          >
+            History
+          </NavLink>
 
-          <SidebarItem
+          <NavLink
             to="/hod/notices"
-            icon={<Bell size={18} />}
-            label="Notices"
-          />
+            className={({ isActive }) =>
+              isActive
+                ? "block bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 px-4 py-3 rounded-lg font-medium transition-colors"
+                : "block px-4 py-3 text-gray-700 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-slate-700 rounded-lg transition-colors"
+            }
+          >
+            Notices
+          </NavLink>
 
-          <SidebarItem
+          <NavLink
             to="/hod/profile"
-            icon={<User size={18} />}
-            label="Profile"
-          />
+            className={({ isActive }) =>
+              isActive
+                ? "block bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 px-4 py-3 rounded-lg font-medium transition-colors"
+                : "block px-4 py-3 text-gray-700 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-slate-700 rounded-lg transition-colors"
+            }
+          >
+            Profile
+          </NavLink>
 
         </nav>
       </aside>
 
       {/* CONTENT */}
-      <main className="flex-1 p-8">
+      <main className="flex-1 p-8 text-gray-900 dark:text-slate-100">
         <Outlet />
       </main>
 

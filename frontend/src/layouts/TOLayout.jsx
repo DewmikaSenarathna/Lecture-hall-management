@@ -8,57 +8,39 @@ import {
 } from "lucide-react";
 
 const TOLayout = () => {
+  const links = [
+    { to: "/to", label: "Dashboard", icon: LayoutDashboard, end: true },
+    { to: "/to/pending-users", label: "Pending Users", icon: Users },
+    { to: "/to/history", label: "Approval History", icon: History },
+    { to: "/to/notices", label: "Notices", icon: Bell },
+    { to: "/to/profile", label: "Profile", icon: User },
+  ];
+
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className="flex min-h-screen bg-gray-50 dark:bg-slate-900 transition-colors">
 
-      {/* SIDEBAR */}
-      <aside className="w-64 bg-white border-r shadow-sm p-6 hidden md:block">
-
-        {/* PANEL TITLE */}
-        <h2 className="text-xl font-bold text-indigo-600 mb-8">
-          TO Panel
-        </h2>
-
-        {/* NAVIGATION */}
-        <nav className="space-y-2">
-
-          <SidebarItem
-            to="/to"
-            end
-            icon={<LayoutDashboard size={18} />}
-            label="Dashboard"
-          />
-
-          <SidebarItem
-            to="/to/pending-users"
-            icon={<Users size={18} />}
-            label="Pending Users"
-          />
-
-          <SidebarItem
-            to="/to/history"
-            icon={<History size={18} />}
-            label="Approval History"
-          />
-
-          <SidebarItem
-            to="/to/notices"
-            icon={<Bell size={18} />}
-            label="Notices"
-          />
-
-          <SidebarItem
-            to="/to/profile"
-            icon={<User size={18} />}
-            label="Profile"
-          />
-
+      {/* SIDEBAR - student style */}
+      <aside className="w-64 bg-white dark:bg-slate-800 border-r border-gray-200 dark:border-slate-700 p-6 hidden md:block transition-colors">
+        <nav className="space-y-4">
+          {links.map((item) => (
+            <NavLink
+              key={item.to}
+              to={item.to}
+              end={item.end}
+              className={({ isActive }) =>
+                isActive
+                  ? "block bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 px-4 py-3 rounded-lg font-medium transition-colors"
+                  : "block px-4 py-3 text-gray-700 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-slate-700 rounded-lg transition-colors"
+              }
+            >
+              {item.label}
+            </NavLink>
+          ))}
         </nav>
-
       </aside>
 
       {/* MAIN CONTENT */}
-      <main className="flex-1 p-8">
+      <main className="flex-1 p-8 text-gray-900 dark:text-slate-100">
         <Outlet />
       </main>
 
@@ -67,24 +49,3 @@ const TOLayout = () => {
 };
 
 export default TOLayout;
-
-/* SIDEBAR ITEM COMPONENT */
-
-const SidebarItem = ({ to, icon, label, end }) => {
-  return (
-    <NavLink
-      to={to}
-      end={end}
-      className={({ isActive }) =>
-        `flex items-center gap-3 px-4 py-3 rounded-lg transition ${
-          isActive
-            ? "bg-indigo-50 text-indigo-600 font-medium"
-            : "text-gray-600 hover:bg-gray-100"
-        }`
-      }
-    >
-      {icon}
-      {label}
-    </NavLink>
-  );
-};
