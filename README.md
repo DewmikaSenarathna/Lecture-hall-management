@@ -102,7 +102,7 @@ This architecture promotes **low coupling**, **high cohesion**, and future scala
 ```text
 Lecture-hall-management/
 │
-├── client/ # React frontend
+├── frontend/ # React frontend
 │ ├── public/
 │ └── src/
 │ ├── assets/
@@ -114,7 +114,7 @@ Lecture-hall-management/
 │ ├── App.jsx
 │ └── main.jsx
 │
-├── server/ # Node.js backend
+├── backend/ # Node.js backend
 │ ├── src/
 │ │ ├── config/
 │ │ ├── models/
@@ -126,15 +126,7 @@ Lecture-hall-management/
 │ │ └── server.js
 │ └── tests/
 │
-├── docs/ # Software Engineering documentation
-│ ├── PM/
-│ ├── RA/
-│ ├── QA/
-│ └── User_Documentation.md
-│
 ├── tests/ # Integration and system tests
-│
-├── .github/
 │
 ├── .gitignore
 ├── README.md
