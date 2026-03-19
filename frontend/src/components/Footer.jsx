@@ -3,7 +3,7 @@ import logo from "../assets/logo.png";
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-900 text-gray-300 mt-20">
+    <footer className="bg-gray-900 dark:bg-slate-950 text-gray-300 dark:text-slate-400 mt-20 transition-colors">
 
       {/* MAIN FOOTER */}
       <div className="max-w-7xl mx-auto px-6 py-16 grid md:grid-cols-4 gap-12">
@@ -83,10 +83,11 @@ const Footer = () => {
           </h3>
 
           <ul className="space-y-2 text-sm text-gray-400">
-            <li>Email: support@timelyx.edu</li>
-            <li>Phone: +94 71 234 5678</li>
-            <li>Department of Computing</li>
-            <li>University Campus</li>
+            <li>Email: supporttimelyx@gmail.com</li>
+            <li>Phone: 0705113030</li>
+            <li>Faculty of Engineering</li>
+            <li>University of Jaffna</li>
+            <li>Ariviyal Nagar, Killinochchi</li>
           </ul>
 
           {/* SOCIAL ICONS */}
