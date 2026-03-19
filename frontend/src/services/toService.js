@@ -12,13 +12,18 @@ const toService = {
     return res.data;
   },
 
-  approveUser: async (id) => {
-    const res = await API.put(`/to/approve/${id}`);
+  updatePendingUser: async (id, payload) => {
+    const res = await API.put(`/to/pending-users/${id}`, payload);
     return res.data;
   },
 
-  rejectUser: async (id) => {
-    const res = await API.put(`/to/reject/${id}`);
+  approveUser: async (id, payload) => {
+    const res = await API.put(`/to/approve/${id}`, payload);
+    return res.data;
+  },
+
+  rejectUser: async (id, rejectionReason) => {
+    const res = await API.put(`/to/reject/${id}`, { rejectionReason });
     return res.data;
   },
 
