@@ -12,7 +12,7 @@ export async function sendNotification(req, res) {
             });
         }
 
-        const { receiverRole, message } = req.body;
+        const { receiverRole, message, receivers: explicitReceivers, batch, course } = req.body;
 
         if (!message) {
             return res.status(400).json({
@@ -20,40 +20,50 @@ export async function sendNotification(req, res) {
             });
         }
 
-        
-        if (
-            req.user.role !== "LECTURER" &&
-            req.user.role !== "HOD"
-        ) {
+        if (req.user.role !== "LECTURER" && req.user.role !== "HOD" && req.user.role !== "TO") {
             return res.status(403).json({
-                message: "Only Lecturer or HOD can send notifications"
+                message: "Only Lecturer, HOD or TO can send notifications"
             });
         }
 
-        let receivers = [];
+        let receiversList = [];
+
+        // explicit receiver ids
+        if (Array.isArray(explicitReceivers) && explicitReceivers.length > 0) {
+            receiversList = explicitReceivers.map(r => r);
+        }
+
+        // role-based receivers
+        if (receiverRole) {
+            const role = String(receiverRole).toUpperCase();
+            const users = await User.find({ role: role }).select('_id').lean();
+            receiversList.push(...users.map(u => u._id.toString()));
+        }
+
+        // batch targeting
+        if (batch) {
+            const students = await User.find({ role: 'STUDENT', batch }).select('_id').lean();
+            receiversList.push(...students.map(s => s._id.toString()));
+        }
+
+       
+        if (course) {
+            const students = await User.find({ role: 'STUDENT', courses: course }).select('_id').lean();
+            receiversList.push(...students.map(s => s._id.toString()));
+        }
 
         
-        if (receiverRole === "STUDENTS") {
-            receivers = await User.find({ role: "STUDENT" });
-        }
-
-      
-        else if (receiverRole === "HOD") {
-            receivers = await User.find({ role: "HOD" });
-        }
+        receiversList = [...new Set(receiversList.map(id => id.toString()))];
 
         
-        else if (receiverRole === "LECTURERS") {
-            receivers = await User.find({ role: "LECTURER" });
+        console.debug('sendNotification payload:', { receiverRole, batch, course, explicitReceivers, matchedCount: receiversList.length });
+
+        if (receiversList.length === 0) {
+            console.debug('No receivers matched. payload details:', { receiverRole, batch, course, explicitReceivers });
+            return res.status(400).json({ message: 'No receivers matched for this notification' });
         }
 
-        else {
-            return res.status(400).json({
-                message: "Invalid receiver role"
-            });
-        }
-
-        const receiverIds = receivers.map(user => user._id);
+        const receiverIds = receiversList.map(id => id);
 
         const notification = new Notification({
             sender: req.user._id,
@@ -64,7 +74,8 @@ export async function sendNotification(req, res) {
         await notification.save();
 
         return res.status(201).json({
-            message: "Notification sent successfully"
+            message: "Notification sent successfully",
+            notificationId: notification._id
         });
 
     } catch (error) {
@@ -87,13 +98,40 @@ export async function getMyNotifications(req, res) {
             });
         }
 
+        const mongoose = await import("mongoose");
+        if (mongoose.default.connection.readyState !== 1) {
+            return res.status(200).json([]);
+        }
+
         const notifications = await Notification.find({
             receivers: req.user._id
         })
         .populate("sender", "firstName lastName role")
+        .populate("receivers", "firstName lastName role")
         .sort({ createdAt: -1 });
 
-        return res.status(200).json(notifications);
+        return res.status(200).json(notifications.map(n => {
+            const safeMessage = typeof n.message === 'string' ? n.message : '';
+            const safeTitle = typeof n.title === 'string' && n.title.trim()
+                ? n.title
+                : safeMessage || 'Notice';
+
+            return {
+                id: n._id,
+                title: safeTitle,
+                message: safeMessage,
+                date: n.createdAt,
+                category: n.category || 'GENERAL',
+                isIncoming: true,  // All notifications retrieved via /notifications are incoming (user is receiver)
+                isRead: Array.isArray(n.readBy)
+                    ? n.readBy.map(id => id.toString()).includes(req.user._id.toString())
+                    : false,
+                author: `${n.sender?.firstName || ''} ${n.sender?.lastName || ''}`,
+                senderUser: n.sender || null,
+                receivers: n.receivers || [],
+                receiverCount: n.receivers ? n.receivers.length : 0
+            };
+        }));
 
     } catch (error) {
         return res.status(500).json({
